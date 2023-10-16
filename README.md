@@ -1,6 +1,5 @@
 # CAMHACKER
 ### Run command:
-+ pip upgrade -y
 + apt-get install python3
 + apt-get install git
 + git clone https://github.com/MarcusProgram/CAMHACKER/
