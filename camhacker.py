@@ -39,7 +39,7 @@ toJson = r.json() # получаем список стран в формате j
 countries = toJson['countries']
 
 
-print(Fore.GREEN + """
+print(Fore.RED + """
 ░█████╗░░█████╗░███╗░░░███╗    ██╗░░██╗░█████╗░░█████╗░██╗░░██╗███████╗██████╗░
 ██╔══██╗██╔══██╗████╗░████║    ██║░░██║██╔══██╗██╔══██╗██║░██╔╝██╔════╝██╔══██╗
 ██║░░╚═╝███████║██╔████╔██║    ███████║███████║██║░░╚═╝█████═╝░█████╗░░██████╔╝
@@ -56,6 +56,7 @@ for key, value in countries.items(): # проходимся по всем стр
     print("")
 
 try:
+    i = 1
     country = input("Code: ") # после ввода номера страны
     res = requests.get(f"http://www.insecam.org/en/bycountry/{country}", headers=headers) # получаем юрл с этой страной
     last_page = re.findall(r'pagenavigator\("\?page=", (\d+)', res.text)[0] #из хтмл-кода страницы извлекается номер последней страницы с камерами.
@@ -63,9 +64,11 @@ try:
         res = requests.get(f"http://www.insecam.org/en/bycountry/{country}/?page={page}",
                                  headers=headers)
         find_ip = re.findall(r"http://\d+.\d+.\d+.\d+:\d+", res.text)
+
         for ip in find_ip:
-            print(Fore.RED + ip)
+            print(f"{Fore.RED}[{i}]{Fore.RESET}", ip)
             print("")
+            i+=1
 
 except Exception as ex:
     print(Fore.RED + "Something ERROR :(")
